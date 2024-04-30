@@ -38,16 +38,17 @@ function startGame() {
         wordContainer.appendChild(letterSpace);
     }
 
-    document.querySelectorAll('.btn').forEach(button => {
-        button.addEventListener('click', function() {
+    document.querySelectorAll(".btn").forEach(button => {
+        button.addEventListener("click", function() {
             let letter = button.textContent.toLowerCase();
             checkLetter(letter);
-            button.classList.add('visually-hidden');
+            button.classList.add("visually-hidden");
         });
     });
 }
 
 let hangmanImageIndex = 1;
+const MAX_LIVES = 7;
 
 function updateHangmanStage() {
     let hangmanImage = document.getElementById("hangman-image");
@@ -60,7 +61,7 @@ function updateHangmanStage() {
 function checkLetter(letter) {
     let isInWord = gameWord.includes(letter);
     if (isInWord) {
-        let letterButtons = document.querySelectorAll('.btn-' + letter);
+        let letterButtons = document.querySelectorAll(".btn-" + letter);
         letterButtons.forEach(button => {
             button.classList.add("visually-hidden");
         });
@@ -83,7 +84,7 @@ function checkLetter(letter) {
         updateHangmanStage();
     }
 
-    if (hangmanImageIndex === 8 && !isInWord) {
+    if (hangmanImageIndex > MAX_LIVES && !isInWord) {
         lossText.textContent += gameWord.toUpperCase();
         lossText.classList.remove("visually-hidden");
         hangmanImage.classList.add("visually-hidden");
